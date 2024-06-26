@@ -30,10 +30,10 @@ export const APIKeyModal = ({ onConfirm }: APIKeyProps) => {
         <Stack
             width="full"
         >
-            <Text>If you want to change the API Key if it is not working or is wrong, you can change it in the field below.</Text>
+            <Text></Text>
             <Input
                 inputLeftAddon={<FiKey />}
-                placeholder="Enter your API Key from ChatGPT here."
+                placeholder=""
                 {...register('key')}
                 errorMessage={errors.key?.message}
                 isRequired

@@ -222,7 +222,7 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
           <Button
             justifyContent="flex-start"
             padding={2}
-            
+            onClick={toggleColorMode}
             backgroundColor="transparent"
             leftIcon={colorMode == "dark" ? <FiSun /> : <FiMoon />}
             _hover={{

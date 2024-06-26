@@ -225,6 +225,7 @@ export const Chat = ({ ...props }: ChatProps) => {
                   direction="row"
                   padding={4}
                   rounded={8}
+                  textColor={"black"}
                   backgroundColor={
                     emitter == "gpt" ? "cyan.50" : "transparent"
                   }
@@ -247,16 +248,18 @@ export const Chat = ({ ...props }: ChatProps) => {
             })
           ) : (
             hasSelectedChat === undefined ? <div>
-              <Stack justifyContent="center"
-      alignItems="center"
-      height="full"
-      display={"flex"}
-      >
-              <Heading size="2xl" marginY={8}>
-        GenIA
-      </Heading>
-      <Heading as='h3' size='xl'>Hoy es un buen día para refinar</Heading>
-              </Stack>
+             <Stack justifyContent="center"
+              alignItems="center"
+              height="full"
+              marginEnd={4}
+              display={"flex"}
+             >
+             <Heading size="2xl" marginY={8}>
+               GenIA
+             </Heading>
+             <Heading as='h3' size='xl'>Hoy es un buen día para refinar...</Heading>
+             <Heading as='h5' size='xl'>Inicia haciendo clic en una nueva conversación :)</Heading>
+            </Stack>
             </div> : <Instructions onClick={(text) => setValue("input", text)} />
           )}
         </Stack>
@@ -268,7 +271,7 @@ export const Chat = ({ ...props }: ChatProps) => {
                 activateMailNotification ? <Alert status='success'  display={"inline-flex"} justifyContent="center"
                 alignItems="center">
                 <AlertIcon />
-                <AlertTitle>Email enviado con éxito!</AlertTitle>
+                <AlertTitle>¡Email enviado con éxito!</AlertTitle>
                 <AlertDescription>Revise su bandeja de entrada</AlertDescription>
               </Alert> : <></>
               }
@@ -286,11 +289,13 @@ export const Chat = ({ ...props }: ChatProps) => {
             <Input
               autoFocus={true}
               _focus={{background:"white", textColor:"black"}}
+              background={"white"}
               size={"lg"}
               variant="filled"
               inputRightAddon={
                 <IconButton
                   aria-label="send_button"
+                  color={"black"}
                   icon={!isLoading ? <FiSend /> : <Spinner />}
                   backgroundColor="transparent"
                   onClick={handleSubmit(handleAsk)}
@@ -309,7 +314,9 @@ export const Chat = ({ ...props }: ChatProps) => {
               leftIcon={<FiMail size={17} />}
               borderColor="whiteAlpha.400"
               rounded={4}
+              color={"black"}
               height={"48px"}
+              backgroundColor={"transparent"}
               marginLeft={"5px !important"}
               justifyContent="flex-start"
               transition="all ease .5s"

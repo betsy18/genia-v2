@@ -21,7 +21,7 @@ export const Instructions = ({ onClick }: IInstructionsProps) => {
       icon: FiZap,
       name: "Refinar",
       list: [
-        "La idea de mi proyecto es la siguiente,",
+        "La idea de mi proyecto es la siguiente, ",
       ],
     },
   ];
