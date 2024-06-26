@@ -44,6 +44,10 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
     handleOpen = () => setIsOpen(true),
     handleClose = () => setIsOpen(false);
 
+  const [sessionId, setsessionId] = useState(
+    sessionStorage.getItem("sessionId")
+  );
+
   const [listRef] = useAutoAnimate();
 
   const { toggleColorMode, colorMode } = useColorMode();
@@ -65,6 +69,14 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
   useEffect(() => {
     store.session("@chat", JSON.stringify(chat));
   }, [chat, selectedChat]);
+
+  useEffect(() => {
+    if (!sessionId) {
+      const d = new Date();
+      let ms = d.valueOf();
+      store.session("sessionId", ms);
+    } 
+  }, []);
 
   const responsiveProps = isResponsive
     ? {
@@ -124,7 +136,7 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
         height="full"
         padding={2}
         color="white"
-        backgroundColor="gray.900"
+        backgroundColor="blue.900"
         zIndex={1}
         transition="all ease .5s"
         {...responsiveProps}
@@ -137,7 +149,7 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
             right={0}
             transform={"translateX(125%)"}
             colorScheme="red"
-            backgroundColor="gray.800"
+            backgroundColor="blue.900"
             color="white"
             onClick={handleClose}
           />
@@ -175,7 +187,7 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
                 }
                 onClick={() => setSelectedChat({ id })}
                 _hover={{
-                  backgroundColor: "whiteAlpha.100",
+                  backgroundColor: "blue.300",
                 }}
               >
                 <Text>{gettingChatName(role)}</Text>
@@ -197,10 +209,12 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
             leftIcon={<FiTrash2 />}
             justifyContent="flex-start"
             padding={2}
-            onClick={clearAll}
+            onClick={() => {
+              clearAll();
+            }}
             backgroundColor="transparent"
             _hover={{
-              backgroundColor: "blackAlpha.300",
+              backgroundColor: "blue.300",
             }}
           >
             Borrar conversaciones
@@ -208,19 +222,18 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
           <Button
             justifyContent="flex-start"
             padding={2}
-            onClick={toggleColorMode}
+            
             backgroundColor="transparent"
             leftIcon={colorMode == "dark" ? <FiSun /> : <FiMoon />}
             _hover={{
-              backgroundColor: "blackAlpha.300",
+              backgroundColor: "blue.300",
             }}
           >
             {colorMode == "dark" ? "Modo Claro" : "Modo Oscuro"}
           </Button>
-          
         </Stack>
       </Stack>
-      <AccountModal title="Your account">
+      <AccountModal title="GenIA">
         <Stack
           direction={!isResponsive ? "row" : "column"}
           spacing={4}
@@ -230,12 +243,10 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
           }
         >
           <Stack>
-            <Heading size="md">Free Plan</Heading>
-            <Button disabled>Your Current Plan</Button>
+            <Heading size="md"></Heading>
+            <Button disabled></Button>
             {[
-              "Available when demand is low",
-              "Standard response speed",
-              "Regular model updates",
+              "",
             ].map((text, key) => (
               <Text display="flex" alignItems="center" gap={2} key={key}>
                 <FiCheckCircle />
@@ -245,16 +256,13 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
           </Stack>
           <Stack>
             <Stack direction="row">
-              <Heading size="md">ChatGPT Plus</Heading>
+              <Heading size="md">GenIA</Heading>
               <Heading color="purple.400" size="md">
-                USD $20/mo
               </Heading>
             </Stack>
-            <Button colorScheme="green">Upgrade plan</Button>
+            <Button colorScheme="blue"></Button>
             {[
-              "Available even when demand is high",
-              "Faster response speed",
-              "Priority access to new features",
+              "",
             ].map((text, key) => (
               <Text display="flex" alignItems="center" gap={2} key={key}>
                 <FiCheckCircle color="#1a7f64" />
@@ -264,7 +272,7 @@ export const Sidebar = ({ isResponsive, ...props }: SideBarProps) => {
           </Stack>
         </Stack>
       </AccountModal>
-      <APIKeyModal title="API Key">
+      <APIKeyModal title="">
         <APIKeyModalContent onConfirm={handleCloseAPIKeyModal} />
       </APIKeyModal>
     </>
